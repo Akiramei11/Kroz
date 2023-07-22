@@ -1,0 +1,65 @@
+Room
+{
+	name: Living room
+	description: A cozy living room adorned with art, a fireplace, lush gardens, and a soft carpet.
+	Entity: {
+		Gateway: {
+			name: Kitchen door
+			description: A door that leads to the kitchen.
+			destination: Kitchen
+			open: true
+			locked: false
+		}
+		Gateway: {
+			name: Garden door
+			description: A door that leads outside.
+			destination: Garden
+			open: false
+			locked: true
+		}
+		Item: {
+			name: Carpet
+			description: A soft carpet that warms up the living room.
+			ItemType: 6
+			open: false
+			locked: false
+			elements: {
+				Gateway: {
+					name: Basement trapdoor
+					description: A trapdoor that looks so shady.
+					destination: Basement
+					open: false
+					locked: true
+				}
+			}
+		}
+		Item: {
+			name: Small bag
+			description: A small cloth bag that stores some items.
+			ItemType: 6
+			elements: {
+				Item: {
+					name: Bread
+					description: Recovers some energy.
+					ItemType: 3
+				},
+				Item: {
+					name: Bottle of water
+					description: Recovers some energy.
+					ItemType: 4
+				},
+				Item: {
+					name: Knife
+					description: Be careful, it seams sharpy!
+					ItemType: 1
+				}
+			}
+		}
+		Creature: {
+			name:
+			description:
+
+		}
+		Player
+	}
+}
