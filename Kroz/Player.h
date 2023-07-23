@@ -1,8 +1,10 @@
 #pragma once
-#include "Entity.h"
-class Player : public Entity
+#include "Creature.h"
+class Player : public Creature
 {
 public:
 	Player();
+private:
+
 };
 

@@ -146,6 +146,7 @@
     <ClCompile Include="Gateway.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Kroz.cpp" />
+    <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Room.cpp" />
   </ItemGroup>
@@ -156,6 +157,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gateway.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="NPC.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
   </ItemGroup>

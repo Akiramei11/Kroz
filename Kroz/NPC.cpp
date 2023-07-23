@@ -1,10 +1,7 @@
-#include "Room.h"
-#include "Gateway.h"
-#include "Item.h"
 #include "NPC.h"
-#include <fstream>
+#include "Item.h"
 
-Room::Room(std::ifstream& inputFile) {
+NPC::NPC(std::ifstream& inputFile) {
     std::string line;
 
     while (std::getline(inputFile, line)) {
@@ -18,14 +15,15 @@ Room::Room(std::ifstream& inputFile) {
         else if (line.compare(0, std::string("description: ").length(), "description: ") == 0) {
             setDescription(getStringAfterColon(line));
         }
-        else if (line.compare(0, std::string("Gateway").length(), "Gateway") == 0) {
-            addElements(new Gateway(inputFile));
+        else if (line.compare(0, std::string("maxHealth: ").length(), "maxHealth: ") == 0) {
+            setMaxHealth(stoi(getStringAfterColon(line)));
+            setHealth(stoi(getStringAfterColon(line)));
+        }
+        else if (line.compare(0, std::string("hostile: ").length(), "health: ") == 0) {
+            hostile = stringToBool(getStringAfterColon(line));
         }
         else if (line.compare(0, std::string("Item").length(), "Item") == 0) {
             addElements(new Item(inputFile));
-        }
-        else if (line.compare(0, std::string("Creature").length(), "Creature") == 0) {
-            addElements(new NPC(inputFile));
         }
         else if (line == "}") {
             break;

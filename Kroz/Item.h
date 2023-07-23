@@ -2,7 +2,7 @@
 #include "Entity.h"
 
 enum ItemType {
-	ARMOR = 0,
+	ITEM,
 	WEAPON,
 	TOOL,
 	FOOD,
@@ -16,6 +16,10 @@ class Item : public Entity
 public:
 	Item(std::ifstream& inputFile);
 private:
+	bool pickable;
 	ItemType type;
+	bool open;
+	bool locked;
+	int dmg = 1;
 };
 

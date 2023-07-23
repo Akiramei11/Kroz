@@ -2,9 +2,10 @@
 #include <fstream>
 
 Game::Game(const std::string& levelFile) {
-
+    world = new Entity();
     loadLevel(levelFile);
-
+    player = new Player();
+    world->getElement("Living room")->addElements(player);
 
     commands["north"] = std::make_unique<NorthCommand>();
     commands["south"] = std::make_unique<SouthCommand>();
@@ -32,8 +33,8 @@ Game::Game(const std::string& levelFile) {
 }
 
 Game::~Game() {
-    delete world;
     delete player;
+    delete world;
 }
 
 void Game::loadLevel(const std::string& levelFile) {
@@ -47,6 +48,9 @@ void Game::loadLevel(const std::string& levelFile) {
         }
         if (line.compare(0, std::string("Room").length(), "Room") == 0) {
             world->addElements(new Room(inputFile));
+        }
+        else if (line == "}") {
+            break;
         }
     }
 
