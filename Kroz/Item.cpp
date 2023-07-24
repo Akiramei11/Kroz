@@ -51,16 +51,27 @@ Item::Item(std::ifstream& inputFile) {
             dmg = std::stoi(getStringAfterColon(line));
         }
         else if (line.compare(0, std::string("Gateway").length(), "Gateway") == 0) {
-            addElements(new Gateway(inputFile));
+            addElement(new Gateway(inputFile));
         }
         else if (line.compare(0, std::string("Item").length(), "Item") == 0) {
-            addElements(new Item(inputFile));
+            addElement(new Item(inputFile));
         }
         else if (line.compare(0, std::string("Creature").length(), "Creature") == 0) {
-            addElements(new NPC(inputFile));
+            addElement(new NPC(inputFile));
         }
         else if (line == "}") {
             break;
+        }
+    }
+}
+
+void Item::look() {
+    std::cout << name << ": " << description << std::endl;
+
+    if (open) {
+        for (auto ents : elements) {
+            std::cout << "\t";
+            ents.second->look();
         }
     }
 }

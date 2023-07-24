@@ -15,6 +15,10 @@ class Item : public Entity
 {
 public:
 	Item(std::ifstream& inputFile);
+
+	void look() override;
+
+
 private:
 	bool pickable;
 	ItemType type;

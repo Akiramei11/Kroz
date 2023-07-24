@@ -4,6 +4,14 @@
 #include "NPC.h"
 #include <fstream>
 
+Room::Room() {
+
+}
+
+Room::~Room() {
+
+}
+
 Room::Room(std::ifstream& inputFile) {
     std::string line;
 
@@ -19,16 +27,30 @@ Room::Room(std::ifstream& inputFile) {
             setDescription(getStringAfterColon(line));
         }
         else if (line.compare(0, std::string("Gateway").length(), "Gateway") == 0) {
-            addElements(new Gateway(inputFile));
+            addElement(new Gateway(inputFile));
         }
         else if (line.compare(0, std::string("Item").length(), "Item") == 0) {
-            addElements(new Item(inputFile));
+            addElement(new Item(inputFile));
         }
         else if (line.compare(0, std::string("Creature").length(), "Creature") == 0) {
-            addElements(new NPC(inputFile));
+            addElement(new NPC(inputFile));
         }
         else if (line == "}") {
             break;
         }
     }
+}
+
+Entity* Room::getGateway(const std::string& dest) {
+    return (Gateway*)getElement(dest);
+}
+
+Entity* Room::getGatewayDirection(const std::string& dest) {
+    for (const auto& element : elements) {
+        Gateway* gate = dynamic_cast<Gateway*>(element.second);
+        if (gate && gate->getDirection() == dest) {
+            return gate;
+        }
+    }
+    return nullptr;
 }

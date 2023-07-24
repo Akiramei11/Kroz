@@ -32,3 +32,42 @@ Gateway::Gateway(std::ifstream& inputFile) {
         }
     }
 }
+
+void Gateway::look() {
+    if (!open) {
+        std::cout << name << ": " << " It is closed." << std::endl;
+    }
+    else std::cout << name << ": " << description << std::endl;
+
+    for (auto ents : elements) {
+        ents.second->look();
+    }
+}
+
+
+std::string Gateway::getDirection() {
+    return direction;
+}
+
+std::string Gateway::getDestination() {
+    return destination;
+}
+
+bool Gateway::is_open() {
+    return open;
+}
+
+void Gateway::openGateway() {
+    if (locked) {
+        std::cout << "It's locked" << std::endl;
+    }
+    else {
+        open = true;
+        std::cout << "It's open" << std::endl;
+    }
+}
+
+void Gateway::closeGateway() {
+    open = false;
+    std::cout << "It's closed" << std::endl;
+}

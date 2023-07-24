@@ -7,3 +7,5 @@ Player::Player() {
 	setHealth(13);
 
 }
+
+void Player::look() {}

@@ -4,9 +4,11 @@
 class Room : public Entity
 {
 public:
-	Room() {}
+	Room();
+	~Room();
 	Room(std::ifstream& inputFile);
-
+	Entity* getGateway(const std::string& dest);
+	Entity* getGatewayDirection(const std::string& dest);
 private:
 
 };

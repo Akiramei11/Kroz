@@ -29,8 +29,9 @@ int main()
     
     Game game("testWorld.txt");
 
-    while (1) {
-        std::getline(std::cin, input);
+    input = "look";
+
+    do {
         tokenize(input, args);
         
         
@@ -45,12 +46,13 @@ int main()
                     break;
                 }
             }
+            game.ParseCommand(args);
             //game.tick(args);
             args.clear();
             input = "";
             std::cout << "> ";
-        }
-    }
+        } 
+    } while (std::getline(std::cin, input));
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar

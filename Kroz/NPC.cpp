@@ -23,7 +23,7 @@ NPC::NPC(std::ifstream& inputFile) {
             hostile = stringToBool(getStringAfterColon(line));
         }
         else if (line.compare(0, std::string("Item").length(), "Item") == 0) {
-            addElements(new Item(inputFile));
+            addElement(new Item(inputFile));
         }
         else if (line == "}") {
             break;
