@@ -6,7 +6,6 @@ public:
 	Player();
 
 	void look() override;
-
 	void takeItem(Item* item);
 	void dropItem(Item* item);
 	void throwItem(Item* item);
@@ -14,6 +13,8 @@ public:
 	void examineEntity(Entity* entity);
 	void open(Gateway* gateway);
 	void close(Gateway* gateway);
+
+	bool isInventory(Entity* item);
 
 private:
 

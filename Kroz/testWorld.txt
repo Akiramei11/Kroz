@@ -2,7 +2,7 @@ Room {
 	name: Living room
 	description: A cozy living room adorned with art, a fireplace, lush gardens, and a soft carpet.
 	Gateway {
-		name: Kitchen door
+		name: kitchen door
 		description: A door that leads to the kitchen.
 		destination: Kitchen
 		direction: north
@@ -15,45 +15,39 @@ Room {
 		destination: Garden
 		direction: west
 		open: false
+		locked: false
+	}
+	Gateway {
+		name: basement trapdoor
+		description: A trapdoor that looks so shady.
+		destination: Basement
+		direction: down
+		open: false
 		locked: true
 	}
 	Item {
-		name: Carpet
-		description: A soft carpet that warms up the living room.
-		pickable: false
-		type: 6
-		open: false
-		locked: false
-		Gateway {
-			name: Basement trapdoor
-			description: A trapdoor that looks so shady.
-			destination: Basement
-			direction: down
-			open: false
-			locked: true
-		}
-	}
-	Item {
-		name: Small bag
+		name: small bag
 		description: A small cloth bag that stores some items.
 		pickable: true
 		type: 6
 		open: false
 		locked: false
 		Item {
-			name: Bread
+			name: bread
 			description: Recovers some energy.
 			pickable: true
 			type: 3
+			healing: 5
 		}
 		Item {
-			name: Bottle of water
+			name: bottle of water
 			description: Recovers some energy.
 			pickable: true
 			type: 4
+			healing: 5
 		}
 		Item {
-			name: Knife
+			name: knife
 			description: Be careful, it seams sharpy!
 			pickable: true
 			type: 1
@@ -66,7 +60,7 @@ Room {
 	name: Kitchen
 	description: Where usually you come for food, don't you?
 	Gateway {
-		name: Living room door
+		name: living room door
 		description: A door that leads to the living room.
 		destination: Living room
 		direction: south
@@ -74,58 +68,60 @@ Room {
 		locked: false
 	}
 	Item {
-		name: Sharpened knife
+		name: sharpened knife
 		description: Seams like a knife that chefs usually use, right?
 		pickable: true
 		type: 1
 		dmg: 3
 	}
 	Item {
-		name: Right cabinet
+		name: right cabinet
 		description: White cabinet used to store kitchen stuff.
 		pickable: false
 		type: 6
 		open: false
 		locked: true
 		Item {
-			name: Heal potion
+			name: heal potion
 			description: Recovers from all damage.
 			pickable: true
 			type: 4
+			healing: 20
 		}
 	}
 	Item {
-		name: Left cabinet
+		name: left cabinet
 		description: White cabinet used to store kitchen stuff.
 		pickable: false
 		type: 6
 		open: false
 		locked: false
 		Creature {
-			name: White rabbit
+			name: white rabbit
 			description: A white rabbit with red eyes! Is it some kind of demonic animal?
 			maxHealth: 2
 			hostile: false
 		}
 		Item {
-			name: Rope
+			name: rope
 			description: Useful in some situations.
 			pickable: true
 			type: 2
 		}
 	}
 	Item {
-		name: Fridge
+		name: fridge
 		description: A fridge thats seems to be working.
 		pickable: false
 		type: 6
 		open: false
 		locked: false
 		Item {
-			name: Carrot
+			name: carrot
 			description: A simple orange and delicious carrot.
 			pickable: true
 			type: 3
+			healing: 5
 		}
 	}
 }
@@ -134,7 +130,7 @@ Room {
 	name: Garden
 	description: Wide open field with flowers.
 	Gateway {
-		name: Abyss
+		name: abyss
 		description: A small abyss has opened in this beautiful garden.
 		destination: Down the abyss
 		direction: down
@@ -142,7 +138,7 @@ Room {
 		locked: false
 	}
 	Gateway {
-		name: Living room door
+		name: living room door
 		description: A door back to the house's living room.
 		destination: Living room
 		direction: east
@@ -150,17 +146,17 @@ Room {
 		locked: false
 	}
 	Item {
-		name: Tree
+		name: tree
 		description: Tall and firm tree.
 		pickable: false
 		type: 6
 		Creature {
-			name: Pidgeon
+			name: pidgeon
 			description: A pidfeon carring a key with his peak.
 			maxHealth: 4
 			hostile: false
 			Item {
-				name: Old key
+				name: old key
 				description: Sure it can open something.
 				pickable: true
 				type: 2
@@ -173,7 +169,7 @@ Room {
 	name: Basement
 	description: It is dark and scarry, classic horror movie moment.
 	Gateway {
-		name: Trapdoor to Living room
+		name: trapdoor
 		description: A trapdoor heading back to the living room.
 		destination: Living room
 		direction: up
@@ -181,19 +177,19 @@ Room {
 		locked: true
 	}
 	Creature {
-		name: Orc
+		name: orc
 		description: It is not the most beautiful being, at the moment it is asleep but it seems dangerous.
 		maxHealth: 12
 		hostile: true
 		Item {
-			name: Hammer
+			name: hammer
 			description: Heavy weapon that packs big punches.
 			pickable: true
 			type: 1
 			dmg: 4
 		}
 		Item {
-			name: Small key
+			name: small key
 			description: It must be a key to reach something
 			pickable: true
 			type: 2
@@ -205,7 +201,7 @@ Room {
 	name: Down the abyss
 	description: A small abyss opened in the lawn, it appears quite deep.
 	Gateway {
-		name: Up to Garden
+		name: up to Garden
 		description: This wall is very steep, I need something to climb.
 		destination: Garden
 		direction: up
@@ -213,12 +209,12 @@ Room {
 		locked: true
 	}
 	Creature {
-		name: Demon
+		name: demon
 		description: A demon that asks you for two souls.
 		maxHealth: 20
 		hostile: true
 		Item {
-			name: Scythe
+			name: scythe
 			description: A death machine.
 			pickable: true
 			type: 1

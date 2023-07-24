@@ -3,11 +3,9 @@
 Entity::Entity(const std::string& info) {}
 
 Entity::~Entity() {
-	for (auto entity : elements) {
-		delete entity.second;
+	for (auto it = elements.begin(); it != elements.end(); ++it) {
+		delete it->second;
 	}
-	elements.clear();
-	delete parent;
 }
 
 void Entity::look() {
@@ -16,6 +14,17 @@ void Entity::look() {
 		ents.second->look();
 	}
 }
+
+void Entity::examine() {
+	std::cout << name << ": " << description << std::endl;
+}
+
+Entity* Entity::deepSearch(const std::string& toSearch) {
+	if (name == toSearch) return this;
+	else return nullptr;
+}
+
+
 
 void Entity::setName(const std::string& a) {
 	name = a;
@@ -26,9 +35,6 @@ void Entity::setDescription(const std::string& a) {
 }
 
 void Entity::setParent(Entity* p) {
-	/*if (parent != nullptr) {
-		delete parent;
-	}*/
 	parent = p;
 }
 
@@ -46,7 +52,11 @@ void Entity::removeElement(Entity* entity) {
 }
 
 Entity* Entity::getElement(const std::string name) {
-	return elements[name];
+	auto it = elements.find(name);
+	if (it != elements.end()) {
+		return elements[name];
+	}
+	return nullptr;
 }
 
 std::string Entity::getName() {

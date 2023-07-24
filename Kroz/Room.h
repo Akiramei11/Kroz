@@ -9,6 +9,8 @@ public:
 	Room(std::ifstream& inputFile);
 	Entity* getGateway(const std::string& dest);
 	Entity* getGatewayDirection(const std::string& dest);
+	Entity* deepSearch(const std::string& toSearch);
+
 private:
 
 };

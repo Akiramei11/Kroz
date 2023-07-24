@@ -25,20 +25,28 @@ Item::Item(std::ifstream& inputFile) {
             {
             case 0:
                 type = ITEM;
+                break;
             case 1:
                 type = WEAPON;
+                break;
             case 2:
                 type = TOOL;
+                break;
             case 3:
                 type = FOOD;
+                break;
             case 4:
                 type = DRINK;
+                break;
             case 5:
                 type = DOCUMENT;
+                break;
             case 6:
                 type = CONTAINER;
+                break;
             default:
                 type = ITEM;
+                break;
             }
         }
         else if (line.compare(0, std::string("open: ").length(), "open: ") == 0) {
@@ -49,6 +57,9 @@ Item::Item(std::ifstream& inputFile) {
         }
         else if (line.compare(0, std::string("dmg: ").length(), "dmg: ") == 0) {
             dmg = std::stoi(getStringAfterColon(line));
+        }
+        else if (line.compare(0, std::string("healing: ").length(), "healing: ") == 0) {
+            healing = std::stoi(getStringAfterColon(line));
         }
         else if (line.compare(0, std::string("Gateway").length(), "Gateway") == 0) {
             addElement(new Gateway(inputFile));
@@ -74,4 +85,37 @@ void Item::look() {
             ents.second->look();
         }
     }
+}
+
+Entity* Item::deepSearch(const std::string& toSearch) {
+    if (name == toSearch) return this;
+    else if (type == CONTAINER and open){
+        for (auto element : elements) {
+            if (Entity* res = element.second->deepSearch(toSearch))
+                return res;
+        }
+    }
+    return nullptr;
+}
+
+void Item::setOpen(const bool& state) {
+    open = state;
+}
+
+
+
+ItemType Item::getType() {
+    return type;
+}
+
+bool Item::is_pickable() {
+    return pickable;
+}
+
+int Item::getDmg() {
+    return dmg;
+}
+
+int Item::getHealing() {
+    return healing;
 }

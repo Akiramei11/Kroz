@@ -17,7 +17,7 @@ Game::Game(const std::string& levelFile) {
 
     commands["take"] = std::make_unique<TakeCommand>();
     commands["drop"] = std::make_unique<DropCommand>();
-    commands["throw"] = std::make_unique<ThrowCommand>();
+    commands["put"] = std::make_unique<PutCommand>();
     commands["inventory"] = std::make_unique<InventoryCommand>();
     commands["examine"] = std::make_unique<ExamineCommand>();
 
@@ -25,13 +25,16 @@ Game::Game(const std::string& levelFile) {
     commands["close"] = std::make_unique<CloseCommand>();
 
     commands["attack"] = std::make_unique<AttackCommand>();
-    commands["drink"] = std::make_unique<DrinkCommand>();
-    commands["eat"] = std::make_unique<EatCommand>();
+    commands["consume"] = std::make_unique<ConsumeCommand>();
+    commands["status"] = std::make_unique<StatusCommand>();
 }
 
 Game::~Game() {
-    delete player;
     delete world;
+    world = nullptr;
+
+    delete player;
+    player = nullptr;
 }
 
 void Game::loadLevel(const std::string& levelFile) {
@@ -67,4 +70,9 @@ bool Game::ParseCommand(std::vector<std::string>& args) {
     }
 
     return false; // Command not found.
+}
+
+bool Game::checkPlayer() {
+    if (player->getParent() == nullptr) return true;
+    return false;
 }

@@ -11,6 +11,8 @@ public:
     ~Game();
     void loadLevel(const std::string& level);
 
+    bool checkPlayer();
+
     bool ParseCommand(std::vector<std::string>& args);
 private:
     std::map<std::string, std::unique_ptr<Command>> commands;

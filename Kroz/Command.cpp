@@ -1,7 +1,10 @@
 #include "Command.h"
 #include "Room.h"
 #include "Gateway.h"
+#include "Item.h"
+#include "NPC.h"
 #include <iostream>
+#include <set>
 
 void NorthCommand::execute(Player* player, std::vector<std::string>& args) {
 	Room* roomParent = dynamic_cast<Room*>(player->getParent());
@@ -83,23 +86,44 @@ void LookCommand::execute(Player* player, std::vector<std::string>& args) {
 }
 
 void TakeCommand::execute(Player* player, std::vector<std::string>& args) {
-	std::cout << "south" << std::endl;
+	std::string toTake = concatVectorTillEnd(args, 1);
+	Room* roomParent = dynamic_cast<Room*>(player->getParent());
+	if (Entity* ent = roomParent->deepSearch(toTake)) {
+		if (Item* item = dynamic_cast<Item*>(ent)) {
+			player->takeItem(item);
+		}
+	}
+	
 }
 
 void DropCommand::execute(Player* player, std::vector<std::string>& args) {
-	std::cout << "south" << std::endl;
+	std::string toDrop = concatVectorTillEnd(args, 1);
+	Room* roomParent = dynamic_cast<Room*>(player->getParent());
+	if (Entity* ent = roomParent->deepSearch(toDrop)) {
+		if (Item* item = dynamic_cast<Item*>(ent)) {
+			player->dropItem(item);
+		}
+	}
 }
 
-void ThrowCommand::execute(Player* player, std::vector<std::string>& args) {
-	std::cout << "south" << std::endl;
+void PutCommand::execute(Player* player, std::vector<std::string>& args) {
+	std::cout << "Coming up soon!" << std::endl;
 }
 
 void InventoryCommand::execute(Player* player, std::vector<std::string>& args) {
-	std::cout << "south" << std::endl;
+	player->listInventory();
 }
 
 void ExamineCommand::execute(Player* player, std::vector<std::string>& args) {
-	std::cout << "south" << std::endl;
+	std::string toExamine = concatVectorTillEnd(args, 1);
+	Room* roomParent = dynamic_cast<Room*>(player->getParent());
+	Entity* entity = roomParent->getElement(toExamine);
+	if (entity) entity->examine();
+	else {
+		if (Entity* ent = roomParent->deepSearch(toExamine)) {
+			ent->examine();
+		}
+	}
 }
 
 void OpenCommand::execute(Player* player, std::vector<std::string>& args) {
@@ -108,8 +132,16 @@ void OpenCommand::execute(Player* player, std::vector<std::string>& args) {
 	if (roomParent) {
 		Entity* entity = roomParent->getGateway(door);
 		Gateway* gate = dynamic_cast<Gateway*>(entity);
-		if (gate) gate->openGateway();
-		else std::cout << "You cannot open it." << std::endl;
+		if (gate) {
+			gate->openGateway();
+			return;
+		}
+		Item* item = dynamic_cast<Item*>(entity);
+		if (item) {
+			item->setOpen(true);
+			return;
+		}
+		std::cout << "You cannot open it." << std::endl;
 	}
 	else {
 		std::cout << "You cannot open it." << std::endl;
@@ -131,23 +163,62 @@ void CloseCommand::execute(Player* player, std::vector<std::string>& args) {
 }
 
 void AttackCommand::execute(Player* player, std::vector<std::string>& args) {
-	std::cout << "south" << std::endl;
+	auto toAttack = concatVectorToPron(args, 1);
+	Room* roomParent = dynamic_cast<Room*>(player->getParent());
+	if (Entity* ent = roomParent->deepSearch(toAttack.first)) {
+		if (Creature* npc = dynamic_cast<Creature*>(ent)) {
+			Entity* ent2 = player->deepSearch(toAttack.second);
+			if (Item* weapon = dynamic_cast<Item*>(ent2))
+				player->attack(npc, weapon);
+			else std::cout << "Don't have this weapon." << std::endl;
+		}
+		else std::cout << "Creature not here." << std::endl;
+	}
+	else std::cout << "Creature not here." << std::endl;
 }
 
-void DrinkCommand::execute(Player* player, std::vector<std::string>& args) {
-	std::cout << "south" << std::endl;
+void ConsumeCommand::execute(Player* player, std::vector<std::string>& args) {
+	std::string consumable = concatVectorTillEnd(args, 1);
+	Entity* cons = player->deepSearch(consumable);
+	if (Item* heal = dynamic_cast<Item*>(cons)) {
+		int health = player->getHealth() + heal->getHealing();
+		player->setHealth(health);
+	}
 }
 
-void EatCommand::execute(Player* player, std::vector<std::string>& args) {
-	std::cout << "south" << std::endl;
+void StatusCommand::execute(Player* player, std::vector<std::string>& args) {
+	std::cout << "Health: " << player->getHealth() << std::endl;
 }
+
 std::string Command::concatVectorTillEnd(std::vector<std::string>& args, int first) {
-	if (args.size() > first+1) {
+	if (args.size() > first) {
 		std::string phrase = args[first];
-		for (size_t i = 2; i < args.size(); ++i) {
+		for (size_t i = first+1; i < args.size(); ++i) {
 			phrase += " " + args[i];
 		}
 		return phrase;
 	}
 	return "false";
+}
+
+
+std::pair<std::string, std::string> Command::concatVectorToPron(std::vector<std::string>& args, int first) {
+	if (args.size() > first) {
+		size_t aux = 0;
+		std::string phrase1 = args[first];
+		const std::set<std::string> validPron = { "with", "on" };
+		for (size_t i = first+1; i < args.size(); ++i) {
+			if (validPron.find(args[i]) != validPron.end()) {
+				aux = i + 1;
+				break;
+			}
+			phrase1 += " " + args[i];
+		}
+		std::string phrase2 = args[aux];
+		for (size_t i = aux+1; i < args.size(); ++i) {
+			phrase2 += " " + args[i];
+		}
+		return std::make_pair(phrase1, phrase2);
+	}
+	return std::make_pair("", "");
 }

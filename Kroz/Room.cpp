@@ -54,3 +54,13 @@ Entity* Room::getGatewayDirection(const std::string& dest) {
     }
     return nullptr;
 }
+
+Entity* Room::deepSearch(const std::string& toSearch) {
+    for (const auto& element : elements) {
+        if (Entity* elem = element.second->deepSearch(toSearch)) {
+            return elem;
+        }
+    }
+    return nullptr;
+}
+

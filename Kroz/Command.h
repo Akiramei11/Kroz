@@ -11,6 +11,7 @@ public:
     virtual ~Command() {}
 
     std::string concatVectorTillEnd(std::vector<std::string>& args, int first);
+    std::pair<std::string, std::string> concatVectorToPron(std::vector<std::string>& args, int first);
 };
 
 class NorthCommand : public Command {
@@ -58,7 +59,7 @@ public:
     void execute(Player* player, std::vector<std::string>& args) override;
 };
 
-class ThrowCommand : public Command {
+class PutCommand : public Command {
 public:
     void execute(Player* player, std::vector<std::string>& args) override;
 };
@@ -88,12 +89,12 @@ public:
     void execute(Player* player, std::vector<std::string>& args) override;
 };
 
-class DrinkCommand : public Command {
+class ConsumeCommand : public Command {
 public:
     void execute(Player* player, std::vector<std::string>& args) override;
 };
 
-class EatCommand : public Command {
+class StatusCommand : public Command {
 public:
     void execute(Player* player, std::vector<std::string>& args) override;
 };

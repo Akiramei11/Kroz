@@ -48,6 +48,12 @@ int main()
             }
             game.ParseCommand(args);
             //game.tick(args);
+
+            if (game.checkPlayer()) {
+                std::cout << "You died!" << std::endl;
+                break;
+            }
+
             args.clear();
             input = "";
             std::cout << "> ";

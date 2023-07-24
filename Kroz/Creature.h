@@ -10,12 +10,17 @@ public:
 	//Creature(std::ifstream& inputFile);
 
 	void moveToGateway(Gateway* gateway);
-	void attack(Creature* creature);
+	void attack(Creature* creature, Item* weapon);
 	void eatItem(Item* food);
 	void drinkItem(Item* drink);
+	void kill();
 
 	void setMaxHealth(const int& maxH);
 	void setHealth(const int& h);
+
+	int getHealth();
+
+	Entity* deepSearch(const std::string& toSearch);
 protected:
 	int maxHealth = 10, health = maxHealth;
 	int dmg = 1;
