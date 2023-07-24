@@ -19,12 +19,13 @@ public:
 	void setHealth(const int& h);
 
 	int getHealth();
+	int getMaxHealth();
 
 	Entity* deepSearch(const std::string& toSearch);
 protected:
 	int maxHealth = 10, health = maxHealth;
 	int dmg = 1;
-
+	bool raged = false;
 	
 };
 

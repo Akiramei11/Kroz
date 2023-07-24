@@ -10,6 +10,7 @@ public:
 	Entity* getGateway(const std::string& dest);
 	Entity* getGatewayDirection(const std::string& dest);
 	Entity* deepSearch(const std::string& toSearch);
+	void look() override;
 
 private:
 

@@ -7,6 +7,7 @@ public:
 	Gateway(std::ifstream& inputFile);
 
 	void look() override;
+	void unlock(Entity* key) override;
 
 
 	std::string getDirection();
@@ -21,5 +22,6 @@ private:
 	std::string direction;
 	bool open;
 	bool locked;
+	std::string key;
 };
 

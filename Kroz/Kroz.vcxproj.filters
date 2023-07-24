@@ -79,5 +79,8 @@
     <Text Include="testWorld.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
+    <Text Include="README.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
   </ItemGroup>
 </Project>

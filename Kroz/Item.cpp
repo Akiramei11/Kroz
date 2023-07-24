@@ -55,6 +55,9 @@ Item::Item(std::ifstream& inputFile) {
         else if (line.compare(0, std::string("locked: ").length(), "locked: ") == 0) {
             locked = stringToBool(getStringAfterColon(line));
         }
+        else if (line.compare(0, std::string("key: ").length(), "key: ") == 0) {
+            key = getStringAfterColon(line);
+        }
         else if (line.compare(0, std::string("dmg: ").length(), "dmg: ") == 0) {
             dmg = std::stoi(getStringAfterColon(line));
         }
@@ -112,10 +115,24 @@ bool Item::is_pickable() {
     return pickable;
 }
 
+bool Item::is_open() {
+    return open;
+}
+
 int Item::getDmg() {
     return dmg;
 }
 
 int Item::getHealing() {
     return healing;
+}
+std::string Item::getKey() {
+    return key;
+}
+
+void Item::unlock(Entity* useKey) {
+    if (key == useKey->getName()) {
+        locked = false;
+    }
+    else std::cout << "I cant use that." << std::endl;
 }

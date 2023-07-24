@@ -99,3 +99,7 @@ public:
     void execute(Player* player, std::vector<std::string>& args) override;
 };
 
+class UseCommand : public Command {
+public:
+    void execute(Player* player, std::vector<std::string>& args) override;
+};

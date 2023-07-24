@@ -3,8 +3,8 @@
 Player::Player() {
 	setName("Player");
 	setDescription("A true Hero");
-	setMaxHealth(13);
-	setHealth(13);
+	setMaxHealth(100);
+	setHealth(100);
 
 }
 

@@ -7,6 +7,5 @@ public:
 	NPC(std::ifstream& inputFile);
 private:
 	bool hostile;
-	bool raged = false;
 };
 

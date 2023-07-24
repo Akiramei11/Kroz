@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <fstream>
+#include <iostream>
 
 Game::Game(const std::string& levelFile) {
     world = new Entity();
@@ -27,6 +28,7 @@ Game::Game(const std::string& levelFile) {
     commands["attack"] = std::make_unique<AttackCommand>();
     commands["consume"] = std::make_unique<ConsumeCommand>();
     commands["status"] = std::make_unique<StatusCommand>();
+    commands["use"] = std::make_unique<UseCommand>();
 }
 
 Game::~Game() {
@@ -56,6 +58,47 @@ void Game::loadLevel(const std::string& levelFile) {
 
     inputFile.close();
 }
+
+void Game::tick() {
+    if (Entity* bread = world->getElement("Garden")->getElement("bread")) {
+        Entity* key = world->getElement("Garden")->getElement("tree")->getElement("pidgeon")->getElement("old key");
+        Entity* breadP = bread->getParent();
+        Entity* keyP = key->getParent();
+        breadP->removeElement(bread);
+        keyP->removeElement(key);
+        breadP->addElement(key);
+        keyP->addElement(bread);
+    }
+
+    if (Entity* leftCabinet = world->getElement("Kitchen")->getElement("left cabinet")) {
+        if (Item* leftCabinetItem = dynamic_cast<Item*>(leftCabinet)) {
+            if (leftCabinetItem->is_open()) {
+                Entity* bunny = leftCabinetItem->getElement("white bunny");
+                leftCabinetItem->removeElement(bunny);
+                world->getElement("Kitchen")->addElement(bunny);
+            }
+        }
+    }
+
+    if (Entity* d = world->getElement("Down the abyss")->getElement("demon")) {
+        if (Creature* demon = dynamic_cast<Creature*>(d)) {
+            if (demon->getMaxHealth() > demon->getHealth()) {
+                demon->attack(player, (Item*)demon->getElement("scythe"));
+                std::cout << "The demon attacks you." << std::endl;
+            }
+        }
+    }
+
+    if (Entity* d = world->getElement("Basement")->getElement("orc")) {
+        if (Creature* orc = dynamic_cast<Creature*>(d)) {
+            if (orc->getMaxHealth() > orc->getHealth()) {
+                orc->attack(player, (Item*)orc->getElement("hammer"));
+                std::cout << "The orc attacks you." << std::endl;
+            }
+        }
+    }
+}
+
 
 bool Game::ParseCommand(std::vector<std::string>& args) {
 

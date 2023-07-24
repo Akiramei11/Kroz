@@ -16,6 +16,7 @@ public:
 	virtual void look();
 	void examine();
 	virtual Entity* deepSearch(const std::string& toSearch);
+	virtual void unlock(Entity* key);
 
 	void setName(const std::string& a);
 	void setDescription(const std::string& a);

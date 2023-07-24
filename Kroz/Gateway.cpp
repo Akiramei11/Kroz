@@ -27,6 +27,9 @@ Gateway::Gateway(std::ifstream& inputFile) {
         else if (line.compare(0, std::string("locked: ").length(), "locked: ") == 0) {
             locked = stringToBool(getStringAfterColon(line));
         }
+        else if (line.compare(0, std::string("key: ").length(), "key: ") == 0) {
+            key = getStringAfterColon(line);
+        }
         else if (line == "}") {
             break;
         }
@@ -42,6 +45,13 @@ void Gateway::look() {
     for (auto ents : elements) {
         ents.second->look();
     }
+}
+
+void Gateway::unlock(Entity* useKey) {
+    if (key == useKey->getName()) {
+        locked = false;
+    }
+    else std::cout << "I cant use that." << std::endl;
 }
 
 

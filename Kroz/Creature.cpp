@@ -17,6 +17,10 @@ int Creature::getHealth() {
     return health;
 }
 
+int Creature::getMaxHealth() {
+    return maxHealth;
+}
+
 
 void Creature::moveToGateway(Gateway* gateway) {
     if (gateway->is_open()) {

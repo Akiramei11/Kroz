@@ -47,7 +47,7 @@ int main()
                 }
             }
             game.ParseCommand(args);
-            //game.tick(args);
+            game.tick();
 
             if (game.checkPlayer()) {
                 std::cout << "You died!" << std::endl;

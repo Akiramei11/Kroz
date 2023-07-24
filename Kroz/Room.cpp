@@ -64,3 +64,9 @@ Entity* Room::deepSearch(const std::string& toSearch) {
     return nullptr;
 }
 
+void Room::look() {
+    std::cout << name << std::endl << description << std::endl;
+    for (auto ents : elements) {
+        ents.second->look();
+    }
+}

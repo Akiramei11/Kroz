@@ -190,6 +190,15 @@ void StatusCommand::execute(Player* player, std::vector<std::string>& args) {
 	std::cout << "Health: " << player->getHealth() << std::endl;
 }
 
+void UseCommand::execute(Player* player, std::vector<std::string>& args) {
+	auto unlock = concatVectorToPron(args, 1);
+	Entity* keyaux = player->deepSearch(unlock.first);
+	Entity* door = player->getParent()->deepSearch(unlock.second);
+	if (Item* key = dynamic_cast<Item*>(keyaux)) {
+		door->unlock(key);
+	}
+}
+
 std::string Command::concatVectorTillEnd(std::vector<std::string>& args, int first) {
 	if (args.size() > first) {
 		std::string phrase = args[first];

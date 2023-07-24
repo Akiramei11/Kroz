@@ -38,6 +38,10 @@ void Entity::setParent(Entity* p) {
 	parent = p;
 }
 
+void Entity::unlock(Entity* key) {
+
+}
+
 void Entity::addElement(Entity* entity) {
 	std::string entityName= entity->getName();
 	elements[entityName] = entity;
@@ -54,7 +58,7 @@ void Entity::removeElement(Entity* entity) {
 Entity* Entity::getElement(const std::string name) {
 	auto it = elements.find(name);
 	if (it != elements.end()) {
-		return elements[name];
+		return it->second;
 	}
 	return nullptr;
 }

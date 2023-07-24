@@ -14,6 +14,7 @@ public:
     bool checkPlayer();
 
     bool ParseCommand(std::vector<std::string>& args);
+    void tick();
 private:
     std::map<std::string, std::unique_ptr<Command>> commands;
     Entity* world;

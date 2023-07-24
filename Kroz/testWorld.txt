@@ -24,6 +24,7 @@ Room {
 		direction: down
 		open: false
 		locked: true
+		key: old key
 	}
 	Item {
 		name: small bag
@@ -81,6 +82,7 @@ Room {
 		type: 6
 		open: false
 		locked: true
+		key: small key
 		Item {
 			name: heal potion
 			description: Recovers from all damage.
@@ -150,6 +152,8 @@ Room {
 		description: Tall and firm tree.
 		pickable: false
 		type: 6
+		open: true
+		locked: false
 		Creature {
 			name: pidgeon
 			description: A pidfeon carring a key with his peak.
@@ -174,7 +178,7 @@ Room {
 		destination: Living room
 		direction: up
 		open: false
-		locked: true
+		locked: false
 	}
 	Creature {
 		name: orc
